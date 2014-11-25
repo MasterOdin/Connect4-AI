@@ -1,8 +1,7 @@
 """
 Tester for board module
 """
-
-import nose
+from __future__ import print_function
 from board import Board
 
 
@@ -29,8 +28,7 @@ def test_add_piece():
         test_board.board[0][test_board.ROWS-2] == 1
 
 
-
-def test_check_win():
+def test_check_win_column():
     """
     Test for checking for a connect 4
     """
@@ -39,6 +37,28 @@ def test_check_win():
     while i < 4:
         test_board.add_piece(4, 1)
         i += 1
+    assert test_board.check_winner(1)
 
-if __name__ == "__main__":
-    nose.runmodule()
+    test_board.clear_board()
+
+
+def test_check_win_row():
+    """
+    Test for checking for a connect 4 on a row
+    """
+    test_board = Board()
+    i = 0
+    while i < 4:
+        test_board.add_piece(i, 1)
+        i += 1
+
+    assert test_board.board[0][test_board.ROWS-1] == 1
+    assert test_board.board[1][test_board.ROWS-1] == 1
+    assert test_board.board[2][test_board.ROWS-1] == 1
+    assert test_board.board[3][test_board.ROWS-1] == 1
+    assert test_board.check_winner(1)
+
+
+def test_check_no_win():
+    test_board = Board()
+    assert test_board.check_winner(1) == False

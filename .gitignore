@@ -2,5 +2,8 @@
 __pycache__/
 *.py[cod]
 
+# Coverage Reports
+.coverage
+
 # PyCharm
 .idea/*

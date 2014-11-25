@@ -1,7 +1,7 @@
 """
 This module contains logic for a Connect-4 board
 """
-
+from __future__ import print_function
 
 class Board(object):
     """
@@ -18,8 +18,8 @@ class Board(object):
     ROWS = 8
 
     def __init__(self):
-        self.board = [[0 for x in range(self.ROWS)]
-                      for y in range(self.COLUMNS)]
+        self.board = None
+        self.clear_board()
 
     def add_piece(self, column, player):
         """
@@ -29,11 +29,12 @@ class Board(object):
         :return:
         """
         piece_added = False
-        for row in range(self.COLUMNS-1, -1, -1):
+        for row in range(self.ROWS-1, -1, -1):
             if self.board[column][row] == 0:
                 self.board[column][row] = player
                 piece_added = True
                 break
+
         return piece_added
 
     def check_winner(self, player):
@@ -43,11 +44,14 @@ class Board(object):
         :return:
         """
         # check down a column
+
+        print("what?")
         count = 0
         for i in range(self.COLUMNS):
             for j in range(self.ROWS):
                 if self.board[i][j] == player:
                     count += 1
+                    print(i, j)
                 else:
                     count = 0
 
@@ -66,4 +70,16 @@ class Board(object):
                 if count == 4:
                     return True
             count = 0
+
         return False
+
+    def clear_board(self):
+        self.board = [None] * self.COLUMNS
+        for i in range(self.COLUMNS):
+            self.board[i] = [0] * self.ROWS
+
+    def print_board(self):
+        for row in range(self.ROWS):
+            for col in range(self.COLUMNS):
+                print(self.board[col][row], end=" ")
+            print("")

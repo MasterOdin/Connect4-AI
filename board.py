@@ -2,6 +2,8 @@
 This module contains logic for a Connect-4 board
 """
 from __future__ import print_function
+import sys
+
 
 class Board(object):
     """
@@ -11,6 +13,7 @@ class Board(object):
         board (list of lists): a column major list of list containing the
             Connect4 Board. The list is added to from bottom up for the row
             (so ROWS-1, then ROWS-2, etc.)
+        has_winner:
         COLUMNS: number of columns in the board
         ROWS: number of rows in the board
     """
@@ -19,6 +22,8 @@ class Board(object):
 
     def __init__(self):
         self.board = None
+        self.has_winner = False
+        self.winning_player = None
         self.clear_board()
 
     def add_piece(self, column, player):
@@ -45,17 +50,17 @@ class Board(object):
         """
         # check down a column
 
-        print("what?")
         count = 0
         for i in range(self.COLUMNS):
             for j in range(self.ROWS):
                 if self.board[i][j] == player:
                     count += 1
-                    print(i, j)
                 else:
                     count = 0
 
                 if count == 4:
+                    self.has_winner = True
+                    self.winning_player = player
                     return True
             count = 0
 
@@ -68,18 +73,30 @@ class Board(object):
                 else:
                     count = 0
                 if count == 4:
+                    self.has_winner = True
+                    self.winning_player = player
                     return True
             count = 0
 
         return False
 
     def clear_board(self):
+        """
+        Create a new empty COLUMNS x ROWS board
+        """
         self.board = [None] * self.COLUMNS
         for i in range(self.COLUMNS):
             self.board[i] = [0] * self.ROWS
+        self.has_winner = False
+        self.winning_player = None
 
-    def print_board(self):
+    def print_board(self, out=sys.stdout):
+        """
+        Print the board out to the specified out
+
+        :param out: output stream (default: sys.stdout)
+        """
         for row in range(self.ROWS):
             for col in range(self.COLUMNS):
-                print(self.board[col][row], end=" ")
-            print("")
+                out.write(str(self.board[col][row])+" ")
+            out.write("\n")

@@ -3,6 +3,7 @@ Tester for board module
 """
 from __future__ import print_function
 from board import Board
+from six import StringIO
 
 
 def test_new_board():
@@ -56,9 +57,21 @@ def test_check_win_row():
     assert test_board.board[1][test_board.ROWS-1] == 1
     assert test_board.board[2][test_board.ROWS-1] == 1
     assert test_board.board[3][test_board.ROWS-1] == 1
+    assert test_board.board[3][test_board.ROWS-2] == 0
     assert test_board.check_winner(1)
 
 
 def test_check_no_win():
     test_board = Board()
-    assert test_board.check_winner(1) == False
+    assert test_board.check_winner(1) is False
+
+
+def test_check_print_board_empty():
+    """
+    blah
+    """
+    test_board = Board()
+    out = StringIO()
+    test_board.print_board(out=out)
+    expected = ("0 "*8+"\n")*8
+    assert expected == out.getvalue()

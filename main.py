@@ -3,7 +3,7 @@ main game logic
 """
 from __future__ import print_function
 from board import Board
-from player import Player
+from human import Human
 from ai import AI
 
 
@@ -13,7 +13,7 @@ def run_game():
     """
     game_board = Board()
 
-    player1 = Player("1")
+    player1 = Human("1")
     player2 = AI("2")
     # players_turn = 1
 

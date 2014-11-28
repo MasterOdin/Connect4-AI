@@ -62,6 +62,9 @@ def test_check_win_row():
 
 
 def test_check_no_win():
+    """
+    test for if board returns false if no winner
+    """
     test_board = Board()
     assert test_board.check_winner(1) is False
 

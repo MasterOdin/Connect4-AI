@@ -1,3 +1,6 @@
+"""
+This is the player module
+"""
 from __future__ import print_function
 
 
@@ -11,5 +14,15 @@ class Player(object):
         self.piece = piece
 
     def get_move(self):
+        """
+        blah
+        :return:
+        """
         raise NotImplementedError("This isn't done yet")
 
+    def blah(self):
+        """
+        a dummy function
+        :return:
+        """
+        pass

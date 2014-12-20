@@ -3,23 +3,32 @@ AI Module
 """
 from __future__ import print_function
 from player import Player
+from heuristics import Random
 
+__author__ = "Matthew 'MasterOdin' Peveler"
+__license__ = "The MIT License (MIT)"
 
 class AI(Player):
     """
-    this is the AI base class?
+    This is an AI player that implements some heuristic for move selection
     """
-    def get_move(self):
+    def __init__(self, piece, heuristic=Random):
+        super(AI, self).__init__(piece)
+        self.heuristic = heuristic
+
+    def get_move(self, board):
         """
         blah
 
         :return:
         """
-        pass
+        col = self.heuristic.get_best_column(board)
+        print("Player", self.piece+" column ==>", col)
+        return col
 
-    def function2(self):
+    def get_type(self):
         """
         just a dummy function
         :return:
         """
-        pass
+        return "AI Agent - " + self.heuristic.NAME + " (Player "+self.piece+")"

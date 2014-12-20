@@ -1,8 +1,10 @@
 """
 This module contains logic for a Connect-4 board
 """
-from __future__ import print_function
 import sys
+
+__author__ = "Matthew 'MasterOdin' Peveler"
+__license__ = "The MIT License (MIT)"
 
 
 class Board(object):
@@ -28,19 +30,32 @@ class Board(object):
 
     def add_piece(self, column, player):
         """
-
-        :param column:
-        :param player:
-        :return:
+        Add a piece to the board for a particular column (if possible)
+        :param column: column to add piece to
+        :param player: player piece to add to board
+        :return: (boolean) if piece was successfully added
         """
-        piece_added = False
+        if column >= self.COLUMNS or column < 0:
+            return False
         for row in range(self.ROWS-1, -1, -1):
             if self.board[column][row] == 0:
                 self.board[column][row] = player
-                piece_added = True
-                break
+                return True
 
-        return piece_added
+        return False
+
+    def can_add_piece(self, column):
+        """
+        Checks to see if it's possible to add a piece to a column
+        :param column: column to check if can add piece to
+        :return: (boolean) if piece can be successfully added
+        """
+        if column >= self.COLUMNS or column < 0:
+            return False
+        for row in range(self.ROWS - 1, -1, -1):
+            if self.board[column][row] == 0:
+                return True
+        return False
 
     def check_winner(self, player):
         """
@@ -48,8 +63,8 @@ class Board(object):
         :param player:
         :return:
         """
-        # check down a column
 
+        # check down a column (vertical)
         count = 0
         for i in range(self.COLUMNS):
             for j in range(self.ROWS):
@@ -64,7 +79,7 @@ class Board(object):
                     return True
             count = 0
 
-        # check across a row
+        # check across a row (horizontal)
         count = 0
         for i in range(self.ROWS):
             for j in range(self.COLUMNS):
@@ -78,6 +93,7 @@ class Board(object):
                     return True
             count = 0
 
+        # TODO: check diagonially
         return False
 
     def clear_board(self):
@@ -100,3 +116,4 @@ class Board(object):
             for col in range(self.COLUMNS):
                 out.write(str(self.board[col][row])+" ")
             out.write("\n")
+        out.write("\n")

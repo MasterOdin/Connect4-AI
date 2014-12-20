@@ -6,6 +6,8 @@ from board import Board
 from human import Human
 from ai import AI
 
+__author__ = "Matthew 'MasterOdin' Peveler"
+__license__ = "The MIT License (MIT)"
 
 def run_game():
     """
@@ -15,17 +17,15 @@ def run_game():
 
     player1 = Human("1")
     player2 = AI("2")
+    print(player1, "vs", player2)
     # players_turn = 1
 
-    while game_board.has_winner(player1.piece, player2.piece):
-        pass
-
-    i = 0
-    while i < 4:
-        game_board.add_piece(i, 1)
-        i += 1
-
-    game_board.print_board()
+    while not game_board.has_winner:
+        col = player1.get_move(game_board)
+        game_board.add_piece(col, player1.piece)
+        col = player2.get_move(game_board)
+        game_board.add_piece(col, player2.piece)
+        game_board.print_board()
 
 if __name__ == "__main__":
     run_game()

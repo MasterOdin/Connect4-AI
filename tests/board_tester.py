@@ -2,7 +2,6 @@
 Tester for board module
 """
 from __future__ import print_function
-import nose
 from six import StringIO
 from board import Board
 import tests.test_boards as test_boards

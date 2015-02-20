@@ -132,7 +132,3 @@ def test_check_no_win():
     """
     test_board = Board()
     assert test_board.check_winner(1) is False
-
-
-if __name__ == "__main__":
-    nose.runmodule()
